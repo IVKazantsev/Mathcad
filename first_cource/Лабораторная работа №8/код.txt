@@ -1,0 +1,70 @@
+% %Задание 1
+% n=20;
+% for x = 0.01:n
+%     fplot(@(x) log(x)-sin(x));
+% end
+% grid on
+
+% %Задание 2
+% %25*x.^2-14*x.*y1+25*y1.^2+62*x-62*y1-224 - эллипс
+% %y2 = x-2- прямая
+% figure
+% fimplicit(@(x,y1) 25*x.^2-14*x.*y1+25*y1.^2+62*x-62*y1-224, [-10,10]);
+% x=linspace(-10,10);
+% y2 = x-2;
+% line(x,y2,'Color', 'RED')
+% hold on;
+% %Точки пересечения
+% syms curX curY;
+% [curX,curY] = solve(curX-2-curY, 25*curX^2-14*curX*curY+25*curY^2+62*curX-62*curY-224);
+% disp([curX,curY]);
+% %Площадь
+% a = 4;
+% b = 3;
+% S = a*b*pi;
+% disp(S);
+% %Фокальные точки
+% %Канонический вид эллипса: (newX)^2/16+(newY-sqrt(2))^2/8=1, где
+% %x=sqrt(2)/2*(newX1-newY), y=sqrt(2)/2*(newX2+newY)
+% c=sqrt(a^2-b^2);
+% newX1 = c;
+% newX2 = -c;
+% newY = sqrt(2);
+% dotX1 = sqrt(2)/2*(newX1-newY);
+% dotY1 = sqrt(2)/2*(newX1+newY);
+% dotX2 = sqrt(2)/2*(newX2-newY);
+% dotY2 = sqrt(2)/2*(newX2+newY);
+% 
+% plot(dotX1,dotY1,'or');
+% plot(dotX2,dotY2,'or');
+
+% %Задание 3
+% % задаем параметры цилиндра
+% c=3;
+% y0=2;
+% % создаем сетку по осям X и Z
+% x=-6:0.25:6;
+% z=-8:0.5:8;
+% [X,Z]=meshgrid(x,z);
+% % вычисляем значения Y
+% Yc1=sqrt(1-(X+1).^2/9)*4;
+% Yc2=-sqrt(1-(X+1).^2/9)*4;
+% % исключаем комплексные элементы массивов Yc1 и Yc2 находим индексы
+% % комплексных элементов массива Yc1 и Yc2 и заменяем их значением NaN
+% ind = abs(imag(Yc1))>0;
+% Yc1 (ind) = NaN;
+% ind = abs(imag(Yc2))>0;
+% Yc2 (ind) = NaN;
+% % строим цилиндр в декартовых координатах
+% figure
+% surf(X,Yc1,Z)
+% hold on
+% surf(X,Yc2,Z)
+% 
+% % строим прямую
+% x1=-4; y1=5; z1=6;
+% p1=-2; p2=4; p3=6;
+% X=[x1 p1-x1];
+% Y=[y1 p2-y1];
+% Z=[z1 p3-z1];
+% plot3(X,Y,Z)
